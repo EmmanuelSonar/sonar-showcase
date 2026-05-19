@@ -30,12 +30,7 @@
         <npm.version>10.9.2</npm.version>
         <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
         <jacoco.version>0.8.11</jacoco.version>
-
-        <!-- SonarCloud configuration -->
-        <sonar.projectKey>sonarcloud-demos_showcase</sonar.projectKey>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.organization>sonarcloud-demos</sonar.organization>
-        <sonar.maven.scanAll>true</sonar.maven.scanAll>
+        
         <!-- Root module: include dependency files (for SCA), root infra, and secrets demo; exclude only build/output dirs -->
         <sonar.sources>.</sonar.sources>
         <sonar.inclusions>**/pom.xml,**/package.json,**/package-lock.json,.github/**,Dockerfile,docker-compose.yml,*.pem,secrets.yml,terraform/**,k8s/**</sonar.inclusions>
