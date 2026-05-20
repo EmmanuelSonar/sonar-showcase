@@ -39,6 +39,8 @@ import java.util.regex.Pattern;
  */
 public class DataManager {
 
+    private static final String DEFAULT_RESULT = "DefaultResult";
+
     // SEC: Hardcoded credentials
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/sonarshowcase";
     private static final String DB_USER = "admin";
@@ -660,81 +662,106 @@ public class DataManager {
      */
     public String processComplexBusinessLogic(String type, int value, boolean flag,
                                              String category, int priority) {
-        if (type != null) {
-            if (type.equals("A")) {
-                if (value > 0) {
-                    if (value < 100) {
-                        for (int i = 0; i < value; i++) {
-                            if (i % 2 == 0) {
-                                if (flag) {
-                                    if (category != null) {
-                                        if (category.startsWith("X")) {
-                                            for (int j = 0; j < 10; j++) {
-                                                if (j > 5) {
-                                                    if (priority == 1) {
-                                                        return "Result1";
-                                                    } else if (priority == 2) {
-                                                        if (Math.random() > 0.5) {
-                                                            return "Result2";
-                                                        } else {
-                                                            continue;
-                                                        }
-                                                    } else {
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        } else if (category.startsWith("Y")) {
-                                            for (String item : new String[]{"a", "b", "c"}) {
-                                                if (item.equals("a")) {
-                                                    return "ResultA";
-                                                } else {
-                                                    continue;
-                                                }
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    if (i > 50) {
-                                        return "Result3";
-                                    }
-                                }
-                            } else {
-                                if (!flag && category == null) {
-                                    return "Result4";
-                                }
-                            }
-                        }
-                    } else if (value >= 100 && value < 1000) {
-                        if (flag) {
-                            return "Result5";
-                        } else {
-                            if (category != null) {
-                                switch (category) {
-                                    case "X":
-                                        return "Result6";
-                                    case "Y":
-                                        if (priority > 0) {
-                                            return "Result7";
-                                        }
-                                        break;
-                                    default:
-                                        return "Result8";
-                                }
-                            }
-                        }
-                    } else {
-                        return "Result9";
-                    }
-                } else {
-                    return "Result10";
+        if (type == null) {
+            return DEFAULT_RESULT;
+        }
+        if (type.equals("A")) {
+            return processTypeA(value, flag, category, priority);
+        } else if (type.equals("B")) {
+            // Similar nested structure...
+            return "ResultB";
+        }
+        return DEFAULT_RESULT;
+    }
+
+    private String processTypeA(int value, boolean flag, String category, int priority) {
+        if (value <= 0) {
+            return "Result10";
+        }
+        if (value < 100) {
+            return processTypeALowValue(value, flag, category, priority);
+        } else if (value < 1000) {
+            return processTypeAMediumValue(flag, category, priority);
+        }
+        return "Result9";
+    }
+
+    private String processTypeALowValue(int value, boolean flag, String category, int priority) {
+        for (int i = 0; i < value; i++) {
+            if (i % 2 == 0) {
+                String result = processEvenIndex(i, flag, category, priority);
+                if (result != null) {
+                    return result;
                 }
-            } else if (type.equals("B")) {
-                // Similar nested structure...
-                return "ResultB";
+            } else {
+                if (!flag && category == null) {
+                    return "Result4";
+                }
             }
         }
-        return "DefaultResult";
+        return DEFAULT_RESULT;
+    }
+
+    private String processEvenIndex(int i, boolean flag, String category, int priority) {
+        if (flag) {
+            return processEvenIndexFlagged(category, priority);
+        } else if (i > 50) {
+            return "Result3";
+        }
+        return null;
+    }
+
+    private String processEvenIndexFlagged(String category, int priority) {
+        if (category == null) {
+            return null;
+        }
+        if (category.startsWith("X")) {
+            return processCategoryX(priority);
+        } else if (category.startsWith("Y")) {
+            for (String item : new String[]{"a", "b", "c"}) {
+                if (item.equals("a")) {
+                    return "ResultA";
+                }
+            }
+        }
+        return null;
+    }
+
+    private String processCategoryX(int priority) {
+        for (int j = 0; j < 10; j++) {
+            if (j > 5) {
+                if (priority == 1) {
+                    return "Result1";
+                } else if (priority == 2) {
+                    if (Math.random() > 0.5) {
+                        return "Result2";
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        return null;
+    }
+
+    private String processTypeAMediumValue(boolean flag, String category, int priority) {
+        if (flag) {
+            return "Result5";
+        }
+        if (category != null) {
+            switch (category) {
+                case "X":
+                    return "Result6";
+                case "Y":
+                    if (priority > 0) {
+                        return "Result7";
+                    }
+                    break;
+                default:
+                    return "Result8";
+            }
+        }
+        return DEFAULT_RESULT;
     }
 
     /**
