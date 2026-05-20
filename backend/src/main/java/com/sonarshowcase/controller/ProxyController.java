@@ -132,7 +132,7 @@ public class ProxyController {
     @GetMapping("/image")
     public ResponseEntity<String> proxyImage(
             @Parameter(description = "Image URL (vulnerable to SSRF)",
-                      example = "http://192.168.1.1/admin")
+                      example = "http://example.com/image.png")
             @RequestParam String imageUrl) {
         try {
             // SEC: No validation of image URL
