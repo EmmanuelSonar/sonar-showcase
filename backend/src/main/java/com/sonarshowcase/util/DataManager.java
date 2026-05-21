@@ -796,7 +796,6 @@ public class DataManager {
      * MAINT: Unused variable
      */
     public void calculateSomething() {
-        int unusedVariable = 42;
         int result = 10 + 20;
         System.out.println(result);
     }
@@ -808,13 +807,12 @@ public class DataManager {
      * @return Category name
      */
     public String processCategory(String cat) {
-        switch (cat) {
-            case "A":
-                return "Category A";
-            case "B":
-                return "Category B";
-            // Missing default case
+        if ("A".equals(cat)) {
+            return "Category A";
+        } else if ("B".equals(cat)) {
+            return "Category B";
         }
+        // Missing default case
         return "Unknown";
     }
 }

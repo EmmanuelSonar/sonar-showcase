@@ -83,20 +83,20 @@ public class Utils {
      */
     public static String processData(String s, int n, boolean f) {
         String temp1 = s;
-        String temp2 = "";
+        StringBuilder temp2 = new StringBuilder();
         int i = 0;
         
         // MNT: Single letter variables, unclear logic
         for (int j = 0; j < n; j++) {
             if (f) {
-                temp2 += temp1.charAt(i % temp1.length());
+                temp2.append(temp1.charAt(i % temp1.length()));
                 i++;
             } else {
-                temp2 += temp1.charAt(n - j - 1);
+                temp2.append(temp1.charAt(n - j - 1));
             }
         }
         
-        return temp2;
+        return temp2.toString();
     }
     
     /**
@@ -145,19 +145,7 @@ public class Utils {
      * @return true if number is positive, false otherwise
      */
     public static boolean isPositive(int number) {
-        if (number > 0) {
-            if (number != 0) {
-                if (number >= 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return number > 0;
     }
     
     /**
@@ -244,19 +232,7 @@ public class Utils {
      * @return true if number is positive, false otherwise
      */
     public static boolean checkIfPositive(int number) {
-        if (number > 0) {
-            if (number != 0) {
-                if (number >= 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return number > 0;
     }
     
     /**
