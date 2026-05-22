@@ -21,13 +21,25 @@ public class Utils {
 
     // MNT: Poor naming
     /** Public static data field 1 */
-    public static String data1;
+    private static String data1;
     /** Public static data field 2 */
-    public static String data2;
+    private static String data2;
     /** Temporary variable */
-    public static int temp;
+    private static int temp;
     /** Generic object variable */
-    public static Object x;
+    private static Object x;
+
+    public static String getData1() { return data1; }
+    public static void setData1(String data1) { Utils.data1 = data1; }
+
+    public static String getData2() { return data2; }
+    public static void setData2(String data2) { Utils.data2 = data2; }
+
+    public static int getTemp() { return temp; }
+    public static void setTemp(int temp) { Utils.temp = temp; }
+
+    public static Object getX() { return x; }
+    public static void setX(Object x) { Utils.x = x; }
     
     /**
      * MNT: Poor method implementation
@@ -266,19 +278,7 @@ public class Utils {
      * @return true if number is positive, false otherwise
      */
     public static boolean isValuePositive(int value) {
-        if (value > 0) {
-            if (value != 0) {
-                if (value >= 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return value > 0;
     }
     
     /**
